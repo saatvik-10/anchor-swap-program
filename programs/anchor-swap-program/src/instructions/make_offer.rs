@@ -12,10 +12,10 @@ pub struct MakeOffer<'info> {
     pub maker: Signer<'info>,
 
     #[account(mint::token_program = token_program)]
-    pub token_mint_a: Interface<'info, Mint>,
+    pub token_mint_a: InterfaceAccount<'info, Mint>,
 
     #[account(mint::token_program = token_program)]
-    pub token_mint_b: Interface<'info, Mint>,
+    pub token_mint_b: InterfaceAccount<'info, Mint>,
 
     #[account(
         mut,
