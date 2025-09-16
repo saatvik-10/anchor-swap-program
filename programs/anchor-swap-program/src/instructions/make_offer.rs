@@ -1,4 +1,4 @@
-use crate::{Offer, ANCHOR_DISCRIMINATOR};
+use crate::{transfer_token, Offer, ANCHOR_DISCRIMINATOR};
 use anchor_lang::prelude::*;
 use anchor_spl::{
     associated_token::AssociatedToken,
@@ -48,7 +48,16 @@ pub struct MakeOffer<'info> {
     pub vault: InterfaceAccount<'info, TokenAccount>,
 }
 
-pub fn send_offered_token_to_vault(ctx: Context<MakeOffer>) -> Result<()> {
-    msg!("Greetings from: {:?}", ctx.program_id);
-    Ok(())
+pub fn send_offered_token_to_vault(
+    ctx: Context<MakeOffer>,
+    token_a_offered_amount: u64,
+) -> Result<()> {
+    transfer_token(
+        &ctx.accounts.maker_token_account_a,
+        &ctx.accounts.vault,
+        &token_a_offered_amount,
+        &ctx.accounts.token_mint_a,
+        &ctx.accounts.maker,
+        &ctx.accounts.token_program,
+    )
 }
