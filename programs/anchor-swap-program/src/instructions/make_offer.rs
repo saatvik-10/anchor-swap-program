@@ -1,10 +1,10 @@
-use crate::{transfer_token, Offer, ANCHOR_DISCRIMINATOR};
+use crate::{Offer, ANCHOR_DISCRIMINATOR};
+use super::shared::transfer_token;
 use anchor_lang::prelude::*;
 use anchor_spl::{
     associated_token::AssociatedToken,
     token_interface::{Mint, TokenAccount, TokenInterface},
 };
-
 #[derive(Accounts)]
 #[instruction(id: u64)]
 pub struct MakeOffer<'info> {
