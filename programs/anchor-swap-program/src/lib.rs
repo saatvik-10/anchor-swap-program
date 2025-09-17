@@ -6,7 +6,6 @@ pub mod state;
 use anchor_lang::prelude::*;
 
 pub use constants::*;
-pub use instructions::*;
 pub use state::*;
 
 declare_id!("qyfaz8Aqt7cDGMor7JJxagUPJybZCUzPAqRGwFb3YXc");
@@ -16,9 +15,14 @@ pub mod anchor_swap_program {
 
     use super::*;
 
-    pub fn make_offer(ctx: Context<MakeOffer>) -> Result<()> {
-        instruction::make_offer::send_offered_tokens_to_vault()?;
+    pub fn make_offer(
+        ctx: Context<MakeOffer>,
+        id: u64,
+        token_a_offered_amount: u64,
+        token_b_wanted_amount: u64,
+    ) -> Result<()> {
+        instructions::make_offer::send_offered_token_to_vault(ctx, token_a_offered_amount)?;
 
-        instruction::make_offer::save_offer(ctx)
+        instructions::make_offer::save_offer(ctx, id, token_b_wanted_amount)
     }
 }
